@@ -1,0 +1,38 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: NUnit Tests using .NET Selenium
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'  # This cron syntax means "at midnight UTC"
+  # push:
+  #   branches:
+  #     - main  # This keeps the workflow running on every commit to the main branch (if needed)
+  # pull_request:
+  #   branches:
+  #     - main  # This keeps the workflow running on every pull request to the main branch (if needed)
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --no-restore
+
+    - name: Tests using .NET Selenium Headless Mode
+      run: dotnet test --filter "FullyQualifiedName~DotnetSelenium.Tests.UnitTest5" 
+
+
