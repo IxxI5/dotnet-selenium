@@ -6,7 +6,9 @@ name: NUnit Tests using .NET Selenium
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *'  # This cron syntax means "at midnight UTC"
+    - cron: '0 0 1 * *'  # This cron syntax means "at the first day every month"
+  #  - cron: '0 0 * * *'  # This cron syntax means "at midnight UTC every day"
+    
   # push:
   #   branches:
   #     - main  # This keeps the workflow running on every commit to the main branch (if needed)
